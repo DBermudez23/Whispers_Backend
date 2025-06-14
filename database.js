@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
     }
   }
 })
-//Each whisper has an author, a message, and creation and update dates
+// Each whisper has an author, a message, and creation and update dates
 const whisperSchema = new mongoose.Schema({
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   message: String,

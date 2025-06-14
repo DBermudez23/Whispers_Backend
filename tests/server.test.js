@@ -59,7 +59,6 @@ describe('Server', () => {
     })
   })
 
-
   describe('POST /login', () => {
     it('Should return a 400 when the body is empty', async () => {
       const response = await supertest(app)
@@ -92,8 +91,7 @@ describe('Server', () => {
       expect(response.status).toBe(200)
       expect(response.body.accessToken).toBeDefined()
     })
-  })  
-
+  })
 
   describe('GET /api/v1/whisper', () => {
     it('Should return a 401 when the user is not authenticated', async () => {
@@ -121,7 +119,6 @@ describe('Server', () => {
     })
   })
 
-
   describe('GET /api/v1/whisper/:id', () => {
     it('Should return a 401 when the user is not authenticated', async () => {
       const response = await supertest(app)
@@ -145,7 +142,6 @@ describe('Server', () => {
       expect(response.body).toEqual(whispers.find(w => w.id === existingId))
     })
   })
-
 
   describe('POST /api/v1/whisper', () => {
     it('Should return a 400 when the body is empty', async () => {
@@ -185,7 +181,6 @@ describe('Server', () => {
       expect(normalize(storedWhisper).message).toStrictEqual(newWhisper.message)
     })
   })
-
 
   describe('PUT /api/v1/whisper/:id', () => {
     it('Should return a 400 when the body is empty', async () => {
@@ -241,7 +236,6 @@ describe('Server', () => {
     })
   })
 
-  
   describe('DELETE /api/v1/whisper/:id', () => {
     it("Should return a 404 when the whisper doesn't exist", async () => {
       const response = await supertest(app)

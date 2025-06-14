@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
-import dotenv from 'dotenv';
-dotenv.config();
+import dotenv from 'dotenv'
 import {
   Whisper,
   User
 } from '../database.js'
 import { generateToken } from '../utils.js'
+dotenv.config()
 
 const ensureDbConnection = async () => {
   try {
