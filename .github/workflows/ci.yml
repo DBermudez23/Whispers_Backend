@@ -1,26 +1,39 @@
 name: Continous Integration
+
 on: [push]
+
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Install dependencies
         run: npm install
+
       - name: Check code style
         run: npm run lint
+
       - name: Generate a random JWT secret
         id: generate-secret
-        run: echo "::set-output name=JWT_SECRET::$(openssl rand -base64 30)"
-        shell: bash
+        run: echo "JWT_SECRET=$(openssl rand -base64 30)" >> $GITHUB_ENV
+
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose version
+
       - name: Prepare environment
         run: npm run infra:start
+
       - name: Run tests
         run: npm test
         env:
           MONGODB_URI: mongodb://localhost:27017/whispering-database
           PORT: 3000
           SALT_ROUNDS: 10
-          JWT_SECRET: ${{ steps.generate-secret.outputs.JWT_SECRET }}
+          JWT_SECRET: ${{ env.JWT_SECRET }}
+
       - name: Build Docker image
         run: docker build -t nodejs-for-beginners .
