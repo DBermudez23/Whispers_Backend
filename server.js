@@ -1,5 +1,5 @@
 import express from 'express'
-import cors from 'cors' 
+import cors from 'cors'
 import bodyParser from 'body-parser'
 import * as whisper from './stores/whisper.js'
 import * as user from './stores/user.js'
