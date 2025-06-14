@@ -1,11 +1,12 @@
 import express from 'express'
+import cors from 'cors' 
 import bodyParser from 'body-parser'
 import * as whisper from './stores/whisper.js'
 import * as user from './stores/user.js'
 import { generateToken, requireAuthorization } from './utils.js'
 
 const app = express()
-
+app.use(cors())
 app.use(bodyParser.json())
 
 // --- Auth API ---
